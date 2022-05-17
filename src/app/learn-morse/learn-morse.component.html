@@ -1,0 +1,72 @@
+<div class="centered_container">
+  <div *ngIf="!started">
+    <div class="info-text" *ngFor="let title_line of help_title">
+      {{title_line}}
+    </div>
+  </div>
+  <div *ngIf="started">
+    <div class="box">
+      <div class="percent">
+        <svg class="round">
+          <circle cx="70" cy="70" r="70"></circle>
+          <circle cx="70" cy="70" r="70" [style.strokeDashoffset]="dashoffset"></circle>
+        </svg>
+        <div class="num">
+          <div class="timer-text">
+            {{getTimer()}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="morse_container_container_container">
+    <div class="morse_container_container" #morse_div>
+      <div class="morse_container" *ngFor='let _ of to_type_render; let i=index;'>
+        <div style="position: relative;" *ngFor='let item of to_type_render[i];'>
+          <img [ngClass]="{
+              'grey' : item.index <= 1 + correct_counter, 
+              'red' : 
+                  item.index == 1 + correct_counter &&
+                  (this.current_char.toLowerCase() != this.to_type.charAt(this.correct_counter).toLowerCase() &&
+                  this.current_char.toLowerCase() != '⍽'),
+              'green': 
+                  item.index == 1 + correct_counter &&
+                  (this.current_char.toLowerCase() == this.to_type.charAt(this.correct_counter).toLowerCase() ||
+                  this.current_char.toLowerCase() == '⍽')
+          }" class="morse_char" src="{{getImage(item.char)}}" />
+          <div *ngIf="help" class="help-char">{{item.char}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="morse_container_container" #morse_div>
+    <div class="text_input_container_container">
+      <div class="text_input_container">
+        <div class="text_input">{{user_input}}</div>
+        <div [ngClass]="{
+          'red' : 
+            this.current_char.toLowerCase() != this.to_type.charAt(this.correct_counter).toLowerCase() && 
+            this.current_char.toLowerCase() != '⍽', 
+          'green' : this.current_char.toLowerCase() == this.to_type.charAt(this.correct_counter).toLowerCase() || 
+            this.current_char.toLowerCase() == '⍽', 
+          current_char:true
+        }">
+          {{current_char}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-window" #modal>
+  <div>
+    <a class="modal-close" (click)="closeModal()">Close</a>
+    <h3 style="text-align: center;">Success !!</h3>
+    <span>WPM: 56</span><br>
+    <span>Time taken: {{getSeconds()}} seconds</span>
+    <div class="buttons-container ">
+      <button class="blue-button option-button" (click)="restart()">Repeat</button>
+      <button class="orange-button option-button" (click)="changePage('exercises')">Search Exercises</button>
+    </div>
+  </div>
+</div>

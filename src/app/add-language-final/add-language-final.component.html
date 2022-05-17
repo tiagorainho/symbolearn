@@ -1,0 +1,33 @@
+<input #file_input type="file" accept="image/x-png,image/gif,image/jpeg" (change)="selectedFile($event)"
+  style="display: none;" />
+<div class="char-container">
+  <div class="char-item" *ngFor="let i of to_render" (dragend)="preventDefaults($event)"
+    (drop)="preventDefaults($event); parseFile(i.character, $event)" (dragover)="preventDefaults($event);"
+    (dragenter)="setHovering(i.character, true)" (dragleave)="setHovering(i.character, false)"
+    [ngClass]="{hovering: i.hovering > 0}">
+    <div *ngIf="i.hovering == 0 && i.image != ''" class="delete-button-container" (click)="i.image=''">
+      <i class="fa fa-trash delete-button"></i>
+    </div>
+    <img *ngIf="i.hovering == 0 && i.image != ''" class="char-image" [src]="i.image" />
+    <div *ngIf="i.hovering == 0 && i.image == ''" class="char-image-placeholder">
+      <div class="placeholder-text" *ngFor="let i of this.locale.drag_drop[this.lang]">
+        {{i}} 
+      </div>
+      <div class="button blue-button" (click)="selectFile(i.character)">
+        {{this.locale.select_button[this.lang]}}
+      </div>
+    </div>
+    <div *ngIf="i.hovering > 0" class="drop-it">
+      {{this.locale.drop[this.lang]}}
+    </div>
+    <div style="margin-top: 8px;">{{i.character}}</div>
+  </div>
+</div>
+<div class="accept-button-container-container">
+  <div class="accept-button-container">
+    <input [(ngModel)]="language_name" placeholder={{this.locale.lang_name[this.lang]}} class="accept-button-practice blue-button"
+      [ngClass]="{deactivated: !allFull()}" (keydown)="keydown($event)" />
+    <div class="accept-button orange-button" (click)="changePage('learn', 'lang=sem')"
+      [ngClass]="{deactivated: !allFull()}">{{this.locale.add_lang[this.lang]}}</div>
+  </div>
+</div>

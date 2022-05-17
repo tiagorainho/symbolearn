@@ -1,0 +1,58 @@
+    .button {
+    flex: 1;
+    white-space: nowrap;
+    margin-top: 2rem;
+    margin-right: 6rem;
+    margin-left: 6rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.outer_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_text {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    align-items: center;
+    text-align: center;
+}
+
+.text_div {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 70px;
+    color: var(--main-text-color);
+}
+
+.sub_title {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    color: var(--main-text-color);
+}

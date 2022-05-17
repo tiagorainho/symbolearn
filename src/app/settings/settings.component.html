@@ -1,0 +1,18 @@
+<div class="container container-1">
+  <div class="config">{{this.locale.attempt_duration[this.lang]}}</div>
+  <input type="number" min="0" (keydown)="dirtyChange()" [(ngModel)]="attempt_duration">
+</div>
+<div class="container container-1">
+  <div class="config">{{this.locale.theme[this.lang]}}</div>
+  <div class="dropdown">
+    <button class="dropbtn">{{ current_theme_btn }}</button>
+    <div class="dropdown-content">
+      <a *ngFor="let theme of objKeys()" (click)="changeTheme(theme)">{{ theme }}</a>
+    </div>
+  </div>
+</div>
+<div class="container" *ngFor="let setting of settings">
+  <div class="config">{{ setting.config }}</div>
+  <app-config (config_changed)="changeLang($event)" (dirtyChange)="dirtyChange()" [setting]=setting></app-config>
+</div>
+<div class="button blue-button" #save_button style="visibility: hidden;" (click)="save()">{{this.locale.apply_button[this.lang]}}</div>
